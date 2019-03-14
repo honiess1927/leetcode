@@ -62,18 +62,14 @@ class Solution {
 		int[] up = new int[nums.length], down = new int[nums.length];
 		up[0] = 1;
 		down[0] = 1;
+		int res = 1;
 		for (int i = 1; i < nums.length; i++) {
-			if (nums[i] > nums[i - 1]) {
-				up[i] = down[i - 1] + 1;
-				down[i] = down[i - 1];
-			} else if (nums[i] < nums[i - 1]) {
-				down[i] = up[i - 1] + 1;
-				up[i] = up[i - 1];
-			} else {
-				up[i] = up[i - 1];
-				down[i] = down[i - 1];
+			for (int j = 0; j < i; j++) {
+				if (nums[i] > nums[j]) up[i] = Math.max(up[i], down[j] + 1);
+				else if (nums[i] < nums[j]) down[i] = Math.max(down[i], up[j] + 1);
 			}
+			res = Math.max(res, Math.max(up[i], down[i]));
 		}
-		return Math.max(up[nums.length - 1], down[nums.length - 1]);
+		return res;
 	}
 }
