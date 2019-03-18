@@ -13,13 +13,13 @@ class Node {
 };
 */
 class Solution {
-	Map<Integer, Node> map = new HashMap<>();
+	Map<Node, Node> map = new HashMap<>();
 	public Node cloneGraph(Node node) {
 		if (node == null) return null;
-		if (map.containsKey(node.val)) return map.get(node.val);
+		if (map.containsKey(node)) return map.get(node);
 		Node cur = new Node();
 		cur.val = node.val;
-		map.put(cur.val, cur);
+		map.put(node, cur);
 		cur.neighbors = new LinkedList<>();
 		for (Node neighbor : node.neighbors) {
 			cur.neighbors.add(cloneGraph(neighbor));
