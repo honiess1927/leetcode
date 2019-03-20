@@ -14,26 +14,24 @@ class Solution {
 			String[] query = queries[i];
 			if (!map.containsKey(query[0]) || !map.containsKey(query[1])) continue;
 			Queue<String> queue = new LinkedList<>();
-			Queue<Double> dqueue = new LinkedList<>();
 			Set<String> visited = new HashSet<>();
 			queue.offer(query[0]);
-			dqueue.offer(1.0);
+			map.get(query[0]).put(query[0], 1.0);
 			while (!queue.isEmpty()) {
 				String cur = queue.poll();
-				double value = dqueue.poll();
+				Double value = map.get(query[0]).get(cur);
 				if (cur.equals(query[1])) {
 					res[i] = value;
 					break;
 				}
 				if (visited.contains(cur)) continue;
 				visited.add(cur);
-				if (!map.get(query[0]).containsKey(cur)) {
-					map.get(query[0]).put(cur, value);
-					map.get(cur).put(query[0], 1.0 / value);
-				}
 				for (Map.Entry<String, Double> entry : map.get(cur).entrySet()) {
+					if (!map.get(query[0]).containsKey(entry.getKey())) {
+						map.get(query[0]).put(entry.getKey(), value * entry.getValue());
+						map.get(entry.getKey()).put(query[0], 1 / (value * entry.getValue()));
+					}
 					queue.offer(entry.getKey());
-					dqueue.offer(value * entry.getValue());
 				}
 			}
 		}
