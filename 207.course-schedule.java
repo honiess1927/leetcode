@@ -1,31 +1,23 @@
 class Solution {
 	public boolean canFinish(int numCourses, int[][] prerequisites) {
-		Set<Integer> leaf = new HashSet<>();
-		for (int i = 0; i < numCourses; i++) leaf.add(i);
-		Map<Integer, Set<Integer>> preq = new HashMap<>();
-		Map<Integer, Set<Integer>> succ = new HashMap<>();
-		for (int[] p : prerequisites) {
-			if (!preq.containsKey(p[1])) {
-				preq.put(p[1], new HashSet<>());
-				leaf.remove(p[1]);
-			}
-			preq.get(p[1]).add(p[0]);
-			if (!succ.containsKey(p[0])) {
-				succ.put(p[0], new HashSet<>());
-			}
-			succ.get(p[0]).add(p[1]);
+		int[] indegree = new int[numCourses];
+		Map<Integer, List<Integer>> map = new HashMap<>();
+		for (int[] pre : prerequisites) {
+			if (!map.containsKey(pre[0])) map.put(pre[0], new LinkedList<>());
+			map.get(pre[0]).add(pre[1]);
+			indegree[pre[1]]++;
 		}
-		while (!leaf.isEmpty()) {
-			Set<Integer> nextLeaf = new HashSet<>();
-			numCourses -= leaf.size();
-			for (Integer l : leaf) {
-				if (!succ.containsKey(l)) continue;
-				for (int next : succ.get(l)) {
-					preq.get(next).remove(l);
-					if (preq.get(next).isEmpty()) nextLeaf.add(next);
+		Queue<Integer> queue = new LinkedList<>();
+		for (int i = 0; i < numCourses; i++) if (indegree[i] == 0) queue.offer(i);
+		while (!queue.isEmpty()) {
+			int cur = queue.poll();
+			numCourses--;
+			if (map.containsKey(cur)) {
+				for (int next : map.get(cur)) {
+					indegree[next]--;
+					if (indegree[next] == 0) queue.offer(next);
 				}
 			}
-			leaf = nextLeaf;
 		}
 		return numCourses == 0;
 	}
