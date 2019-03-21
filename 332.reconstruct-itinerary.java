@@ -1,33 +1,20 @@
 class Solution {
 	public List<String> findItinerary(String[][] tickets) {
-		Map<String, List<Integer>> map = new HashMap<>();
-		for (int i = 0; i < tickets.length; i++) {
-			String[] ticket = tickets[i];
-			if (!map.containsKey(ticket[0])) map.put(ticket[0], new LinkedList<>());
-			map.get(ticket[0]).add(i);
+		Map<String, PriorityQueue<String>> map = new HashMap<>();
+		for (String[] ticket : tickets) {
+			map.putIfAbsent(ticket[0], new PriorityQueue<>());
+			map.get(ticket[0]).add(ticket[1]);
 		}
-		List<String> res = new LinkedList<>();
-		for (List<Integer> list : map.values()) {
-			Collections.sort(list, (a, b) -> (tickets[a][1].compareTo(tickets[b][1])));
-		}
-		boolean[] visited = new boolean[tickets.length];
-		dfs(res, tickets.length, map, visited, "JFK", tickets);
+		LinkedList<String> res = new LinkedList<>();
+		dfs(map, res, "JFK");
 		return res;
 	}
 
-	private boolean dfs(List<String> res, int left, Map<String, List<Integer>> map, boolean[] visited, String curr, String[][] tickets) {
-		res.add(curr);
-		if (left == 0) return true;
-		if (map.containsKey(curr)) {
-			for (int tt : map.get(curr)) {
-				if (!visited[tt]) {
-					visited[tt] = true;
-					if (dfs(res, left - 1, map, visited, tickets[tt][1], tickets)) return true;
-					visited[tt] = false;
-				}
-			}
+	private void dfs(Map<String, PriorityQueue<String>> map, LinkedList<String> res, String cur) {
+		if (map.containsKey(cur)) {
+			PriorityQueue<String> pq = map.get(cur);
+			while (!pq.isEmpty()) dfs(map, res, pq.poll());
 		}
-		res.remove(res.size() - 1);
-		return false;
+		res.addFirst(cur);
 	}
 }
