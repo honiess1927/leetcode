@@ -8,19 +8,18 @@
  * }
  */
 class Solution {
-	String res = null;
     public String smallestFromLeaf(TreeNode root) {
-    	helper("", root);
-    	return res;
+    	return helper("", root);
     }
 
-    public void helper(String succ, TreeNode root) {
-    	if (root == null) return;
+    public String helper(String succ, TreeNode root) {
+    	if (root == null) return "" + (char)('z' + 1);
     	String str = (char)(97 + root.val) + succ;
     	if (root.left == null && root.right == null) {
-    		if (res == null || str.compareTo(res) < 0) res = str;
+    		return str;
     	}
-    	helper(str, root.left);
-    	helper(str, root.right);
+    	String left = helper(str, root.left);
+    	String right = helper(str, root.right);
+    	return left.compareTo(right) < 0 ? left : right;
     }
 }
