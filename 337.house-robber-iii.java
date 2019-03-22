@@ -9,15 +9,20 @@
  */
 class Solution {
     public int rob(TreeNode root) {
-        return rob(root, true);
+    	int[] res = robIt(root);
+    	return Math.max(res[0], res[1]);
     }
 
-    public int rob(TreeNode root, boolean canRob) {
-    	if (root == null) return 0;
-    	if (canRob) {
-    		return Math.max(root.val + rob(root.left, false) + rob(root.right, false), rob(root.left, true) + rob(root.right, true));
-    	} else {
-    		return rob(root.right, true) + rob(root.left, true);
-    	}
+    public int[] robIt(TreeNode root) {
+    	if (root == null) return new int[2];
+    	int[] left = robIt(root.left);
+    	int[] right = robIt(root.right);
+
+    	int[] res = new int[2];
+    	//0 = cannot rob, 1 = can rob
+    	res[0] = left[1] + right[1];
+    	res[1] = Math.max(res[0], root.val + left[0] + right[0]);
+    	return res;
     }
+
 }
