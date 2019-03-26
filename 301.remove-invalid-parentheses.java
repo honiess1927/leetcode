@@ -8,6 +8,7 @@ class Solution {
 
     public void dfs(char[] s, int at, int left, StringBuilder sb) {
     	if (left < 0) return;
+    	if (sb.length() + s.length - at < maxLen) return;
     	if (at == s.length) {
     		if (left != 0 || sb.length() < maxLen) return;
     		if (sb.length() > maxLen) {
