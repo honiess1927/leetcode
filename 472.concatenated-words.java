@@ -26,24 +26,21 @@ class Solution {
 		List<String> res = new LinkedList<>();
 		for (String word : words) {
 			if (word.isEmpty()) continue;
-			helper(res, word, 0, root, root);
+			if (helper(word, 0, root, root)) res.add(word);
 		}
 		return res;
 	}
 
-	private boolean helper(List<String> res, String word, int p, Node root, Node baseRoot) {
+	private boolean helper(String word, int p, Node root, Node baseRoot) {
 		if (root == null) return false;
 		if (p == word.length()) {
-			if (root.word != null && !word.equals(root.word)) {
-				res.add(word);
-				return true;
-			}
+			if (root.word != null && !word.equals(root.word)) return true;
 			return false;
 		}
 
 		if (root.word != null) {
-			if (helper(res, word, p + 1, baseRoot.getSuccNode(word.charAt(p)), baseRoot)) return true;
+			if (helper(word, p + 1, baseRoot.getSuccNode(word.charAt(p)), baseRoot)) return true;
 		}
-		return helper(res, word, p + 1, root.getSuccNode(word.charAt(p)), baseRoot);
+		return helper(word, p + 1, root.getSuccNode(word.charAt(p)), baseRoot);
 	}
 }
