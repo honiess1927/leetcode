@@ -17,25 +17,19 @@ class Solution {
 		List<String> res = new LinkedList<>();
 		if (oddCount > 1 || (oddCount == 1 && s.length() % 2 == 0)) return res;
 		char[] ch = new char[s.length()];
-		int l, r;
 		if (oddCount == 1) {
 			char midChar = oddSet.iterator().next();
 			ch[ch.length / 2] = midChar;
 			map.put(midChar, map.get(midChar) - 1);
 			if (map.get(midChar) == 0) map.remove(midChar);
-			l = ch.length / 2 - 1;
-			r = l + 2;
-		} else {
-			r = ch.length / 2;
-			l = r - 1;
 		}
 
-		dfs(res, l, r, map, ch);
+		dfs(res, 0, s.length() - 1, map, ch);
 		return res;
 	}
 
 	private void dfs(List<String> res, int l, int r, Map<Character, Integer> map, char[] chs) {
-		if (l < 0) {
+		if (l >= r) {
 			res.add(new String(chs));
 			return;
 		}
@@ -44,10 +38,7 @@ class Solution {
 			chs[l] = entry.getKey();
 			chs[r] = entry.getKey();
 			entry.setValue(entry.getValue() - 2);
-			if (entry.getValue() == 0) 
-				dfs(res, l - 1, r + 1, map, chs);
-			else 
-				dfs(res, l - 1, r + 1, map, chs);
+			dfs(res, l + 1, r - 1, map, chs);
 			entry.setValue(entry.getValue() + 2);
 		}
 	}
