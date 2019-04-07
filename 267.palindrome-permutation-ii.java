@@ -30,28 +30,24 @@ class Solution {
 			l = r - 1;
 		}
 
-		List<Map.Entry<Character, Integer>> list = new ArrayList<>();
-		list.addAll(map.entrySet());
-
-		dfs(res, l, r, list, ch);
+		dfs(res, l, r, map, ch);
 		return res;
 	}
 
-	private void dfs(List<String> res, int l, int r, List<Map.Entry<Character, Integer>> list, char[] chs) {
+	private void dfs(List<String> res, int l, int r, Map<Character, Integer> map, char[] chs) {
 		if (l < 0) {
 			res.add(new String(chs));
 			return;
 		}
-		for (int i = 0; i < list.size(); i++) {
-			Map.Entry<Character, Integer> entry = list.get(i);
+		for (Map.Entry<Character, Integer> entry : map.entrySet()) {
 			if (entry.getValue() == 0) continue;
 			chs[l] = entry.getKey();
 			chs[r] = entry.getKey();
 			entry.setValue(entry.getValue() - 2);
 			if (entry.getValue() == 0) 
-				dfs(res, l - 1, r + 1, list, chs);
+				dfs(res, l - 1, r + 1, map, chs);
 			else 
-				dfs(res, l - 1, r + 1, list, chs);
+				dfs(res, l - 1, r + 1, map, chs);
 			entry.setValue(entry.getValue() + 2);
 		}
 	}
