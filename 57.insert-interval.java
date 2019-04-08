@@ -22,8 +22,6 @@ class Solution {
 
 		if (newInterval.end >= intervals.get(i).start) {
 			newInterval.start = Math.min(intervals.get(i).start, newInterval.start);
-			newInterval.end = Math.max(intervals.get(i).end, newInterval.end);
-			i++;
 		}
 
 		while (i < intervals.size() && newInterval.end >= intervals.get(i).start) {
