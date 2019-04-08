@@ -20,10 +20,10 @@ class Solution {
     public int countPrimes(int n) {
     	if (n <= 2) return 0;
     	boolean[] flag = new boolean[n];
-    	int res = 1;
+    	int res = 1, upper = (int)Math.sqrt(n);
     	for (int i = 3; i < n; i+= 2) {
     		if (!flag[i]) res++;
-    		if (res > n / res) continue;
+    		if (res > upper) continue;
     		for (int j = 3; j * res < n; j+=2) {
     			flag[j * res] = true;
     		}
