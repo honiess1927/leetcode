@@ -24,7 +24,7 @@ class Solution {
     	for (int i = 3; i < n; i+= 2) {
     		if (!flag[i]) res++;
     		if (res > n / res) continue;
-    		for (int j = 2; j * res < n; j++) {
+    		for (int j = 3; j * res < n; j+=2) {
     			flag[j * res] = true;
     		}
     	}
