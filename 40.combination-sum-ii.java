@@ -16,9 +16,8 @@ class Solution {
 			res.add(copyList(list));
 			return;
 		}
-		if (curSum > target) return;
 		for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-			if (entry.getKey() < prev || entry.getValue() == 0) continue;
+			if (entry.getKey() < prev || entry.getValue() == 0 || curSum + entry.getKey() > target) continue;
 			list.add(entry.getKey());
 			entry.setValue(entry.getValue() - 1);
 			dfs(res, list, target, curSum + entry.getKey(), entry.getKey());
