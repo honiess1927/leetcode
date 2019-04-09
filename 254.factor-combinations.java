@@ -3,13 +3,13 @@ class Solution {
         List<List<Integer>> res = new LinkedList<>();
         if (n == 1) return res;
         dfs(res, new LinkedList<>(), n, 2);
-        if (res.size() >= 1) res.remove(res.size() - 1);
         return res;
     }
 
     private void dfs(List<List<Integer>> res, LinkedList<Integer> list, int n, int index) {
     	if (n == 1) {
-    		res.add(new ArrayList(list));
+    		// Error out the reslut [n]
+    		if (list.size() > 1) res.add(new ArrayList(list));
     		return;
     	}
     	for (int i = index; i <= n; i++) {
