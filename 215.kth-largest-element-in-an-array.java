@@ -7,14 +7,22 @@ class Solution {
     	if (l + 1 >= r) return nums[l];
     	int pivot = nums[l];
     	int[] tmp = new int[r - l];
-    	int ll = l, rr = r - 1;
-    	for (int i = l + 1; i < r; i++) {
-    		if (nums[i] >= pivot) tmp[ll++ - l] = nums[i];
-    		else tmp[rr-- - l] = nums[i];
-    	}
-    	tmp[ll - l] = pivot;
-    	for (int i = l; i < r; i++) {
-    		nums[i] = tmp[i - l];
+    	int ll = l, rr = r, i = l + 1;
+    	// for (int i = l + 1; i < r; i++) {
+    	// 	if (nums[i] >= pivot) tmp[ll++ - l] = nums[i];
+    	// 	else tmp[rr-- - l] = nums[i];
+    	// }
+    	// tmp[ll - l] = pivot;
+    	// for (int i = l; i < r; i++) {
+    	// 	nums[i] = tmp[i - l];
+    	// }
+    	while (i < rr) {
+    		if (nums[i] >= pivot) nums[ll++] = nums[i++];
+    		else {
+    			int swap = nums[--rr];
+    			nums[rr] = nums[i];
+    			nums[i] = swap;
+    		}
     	}
     	// System.out.print(l + " " + r + " " + ll + " " + Arrays.toString(nums) + "     ");
     	int rank = ll - l;
