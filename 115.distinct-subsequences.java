@@ -27,7 +27,7 @@ class Solution {
 		f[0][0] = 1;
 		for (int i = 1; i <= t.length(); i++) {
 			f[i][0] = 1;
-			for (int j = 1; j <= s.length(); j++) {
+			for (int j = 1; j <= Math.min(i, s.length()); j++) {
 				if (s.charAt(j - 1) == t.charAt(i - 1)) f[i][j] = f[i - 1][j - 1] + f[i - 1][j];
 				else f[i][j] = f[i - 1][j];
 			}
