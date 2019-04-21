@@ -1,14 +1,14 @@
 class Solution {
 	public int findLUSlength(String[] strs) {
 		int n = strs.length;
-		int[][] cnt = new int[n][n];    
+		int[] cnt = new int[n];    
 		int res = -1;
 		for (int i = 0; i < n; i++) {
 			int min = Integer.MAX_VALUE;
 			for (int j = 0; j < n; j++) {
-				if (i == j) cnt[i][j] = strs[i].length();
-				else cnt[i][j] = helper(strs[i], strs[j]);
-				min = Math.min(min, cnt[i][j]);
+				if (i == j) cnt[j] = strs[i].length();
+				else cnt[j] = helper(strs[i], strs[j]);
+				min = Math.min(min, cnt[j]);
 			}
 			res = Math.max(res, min);
 		}    
