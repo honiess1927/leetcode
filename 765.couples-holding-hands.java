@@ -16,7 +16,7 @@ class Solution {
         	row[loverCurSeat] = curNextToMe;
         	row[i + 1] = lover;
         	map.put(curNextToMe, loverCurSeat);
-        	map.put(lover, i + 1);
+        	// map.put(lover, i + 1);
         	res++;
         }
         return res;
