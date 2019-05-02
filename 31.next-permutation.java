@@ -1,24 +1,28 @@
 class Solution {
     public void nextPermutation(int[] nums) {
-        LinkedList<Integer> list = new LinkedList<>();
+        Deque<Integer> list = new LinkedList<>();
         int i = nums.length - 1;
         while (i >= 0) {
-        	if (list.isEmpty() || list.getLast() <= nums[i]) {
+        	if (list.isEmpty() || list.peekLast() <= nums[i]) {
         		list.add(nums[i]);
         		i--;
         	} else break;
         }
+
+        // Swap the current with the first element in the list that is bigger than it.
+        // The element in the list is ascending, we can even use binary search.
+        int index = i + 1;
         if (i >= 0) {
-        	ListIterator<Integer> iter = list.listIterator(0);
-        	while (iter.next() <= nums[i]);
-        	int tmp = nums[i];
-        	nums[i] = iter.previous();
-        	iter.set(tmp);
+        	int pivot = nums[i];
+        	while (list.peek() <= pivot) {
+        		nums[index++] = list.poll();
+        	}
+        	nums[index++] = pivot;
+        	nums[i] = list.poll();
         }
-        i++;
-        Iterator<Integer> iter = list.iterator();
-        while (i < nums.length) {
-        	nums[i++] = iter.next();
+
+        while (!list.isEmpty()) {
+        	nums[index++] = list.poll();
         }
     }
     private void print(Object... xs) { for (Object x : xs) { if (x.getClass().isArray()) { System.out.print(Arrays.toString((int[])x) + " "); } else { System.out.print(x + " "); } } System.out.print(" ");}
