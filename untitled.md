@@ -1,4 +1,0 @@
-# HeyYo
-
-Just a try.
-
