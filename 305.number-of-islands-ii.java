@@ -18,8 +18,10 @@ class Solution {
         		// print(xx, yy);
         		if (xx >= 0 && xx < m && yy >= 0 && yy < n && uf[xx * n + yy] != 0) {
         			int tmp = xx * n + yy;
+        			// here, shift by one, meaning that default root of point 0 is 1: uf[0] = 1
+        			// so that when uf[x] != 0 we know that there's island on position x
         			while (uf[tmp]!= tmp + 1) {
-        				tmp = uf[tmp] - 1;
+        				tmp = uf[uf[tmp] - 1] - 1;
         			}
         			if (uf[tmp] != val) {
         				uf[tmp] = val;
