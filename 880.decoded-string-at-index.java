@@ -2,16 +2,12 @@ class Solution {
 	public String decodeAtIndex(String S, int K) {
 		long l = 0, k = K;
 		int i = 0;
-		while (l < k) {
+		while (l <= k && i < S.length()) {
 			char ch = S.charAt(i);
 			if (ch < 'a') {
 				l *= (int)(ch - '0');
 			} else {
 				l++;
-			}
-			if (l == k) {
-				while (S.charAt(i) < 'a') i--;
-				return S.substring(i, i + 1);
 			}
 			i++;
 			// print(i, ":", l);
