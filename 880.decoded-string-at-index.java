@@ -11,7 +11,7 @@ class Solution {
 				l++;
 			}
 			i++;
-			print(i, ":", l);
+			// print(i, ":", l);
 		}
 		i--;
 		// Decode
@@ -25,7 +25,7 @@ class Solution {
 				k = k % l;
 			} else l--;
 			i--;
-			print(i, ":", k, l);
+			// print(i, ":", k, l);
 		}
 		while (S.charAt(i) < 'a') i--;
 		return S.substring(i, i + 1);
