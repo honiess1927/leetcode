@@ -1,31 +1,28 @@
 class Solution {
 	final int[][] POS = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     public List<Integer> numIslands2(int m, int n, int[][] positions) {
-        int[][] a = new int[m][n];
         int[] uf = new int[m * n];
         int num = 0;
         List<Integer> res = new LinkedList<>();
         for (int[] pos : positions) {
         	int x = pos[0], y = pos[1];
-        	if (a[x][y] != 0) {
+        	if (uf[x * n + y] != 0) {
         		res.add(num);
         		continue;
         	}
-        	a[x][y] = x * n + y + 1;
         	num++;
-        	uf[x * n + y] = a[x][y];
-        	// print(a);
-        	// print(uf);
+        	int val = x * n + y + 1;
+        	uf[x * n + y] = val;
         	for (int[] p : POS) {
         		int xx = x + p[0], yy = y + p[1];
         		// print(xx, yy);
-        		if (xx >= 0 && xx < m && yy >= 0 && yy < n && a[xx][yy] != 0) {
+        		if (xx >= 0 && xx < m && yy >= 0 && yy < n && uf[xx * n + yy] != 0) {
         			int tmp = xx * n + yy;
         			while (uf[tmp]!= tmp + 1) {
         				tmp = uf[tmp] - 1;
         			}
-        			if (uf[tmp] != a[x][y]) {
-        				uf[tmp] = a[x][y];
+        			if (uf[tmp] != val) {
+        				uf[tmp] = val;
         				num--;
         			}
         		}
