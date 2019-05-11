@@ -20,8 +20,10 @@ class Solution {
         			int tmp = xx * n + yy;
         			// here, shift by one, meaning that default root of point 0 is 1: uf[0] = 1
         			// so that when uf[x] != 0 we know that there's island on position x
+
+        			// another way is just to initialize the uf array to -1;
         			while (uf[tmp]!= tmp + 1) {
-        				uf[tmp] = uf[uf[tmp] - 1];
+        				uf[tmp] = uf[uf[tmp] - 1]; //路径压缩
         				tmp = uf[tmp] - 1;
         			}
         			if (uf[tmp] != val) {
