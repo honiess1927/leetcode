@@ -3,7 +3,10 @@ class Solution {
         int[] f = new int[N + 1];
         for (int i = 1; i <= N; i++) {
         	f[i] = i;
-        	for (int j = 1; j <= i - 3; j++) f[i] = Math.max(f[i], f[j] * (i - j - 1));
+        	for (int j = 3; i - j > 0; j++) {
+        		f[i] = Math.max(f[i - j] * (j - 1), f[i]);
+        	}
+        	// for (int j = 1; j <= i - 3; j++) f[i] = Math.max(f[i], f[j] * (i - j - 1));
         }
     // print(f);
     return f[N];
