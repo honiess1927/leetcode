@@ -32,7 +32,7 @@ class Solution {
 			// print("       ");
 			f.add(tmp);
 		}
-		print(f);
+		// print(f);
 		return f.get(n);
 	}
 	private boolean isSquare(int n) {
