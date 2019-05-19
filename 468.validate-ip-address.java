@@ -10,23 +10,23 @@ class Solution {
     }
 
     private boolean isValidIPv4(String s) {
-        print("IPV4 testing: ", s);
+        // print("IPV4 testing: ", s);
         if (s.charAt(s.length() - 1) == '.') return false;
         String[] segs = s.split("\\.");
         if (segs.length != 4) return false;
-        print("Seg correct");
+        // print("Seg correct");
         for (String seg : segs) {
-            print(seg);
+            // print(seg);
             if (seg.isEmpty() || seg.length() > 3) return false;
-            print("Length correct");
+            // print("Length correct");
             if (seg.length() != 1 && seg.charAt(0) == '0') return false;
-            print("No trailing zero");
+            // print("No trailing zero");
             if (seg.charAt(0) == '-') return false;
             try {
                 int value = Integer.parseInt(seg);
-                print("Format correct");
+                // print("Format correct");
                 if (value > 255 || value < 0) return false;
-                print("Value correct.");
+                // print("Value correct.");
             } catch (NumberFormatException e) {
                 return false;
             }
@@ -41,9 +41,9 @@ class Solution {
         String[] segs = s.split(":");
         if (segs.length != 8) return false;
         for (String seg : segs) {
-            print(seg);
+            // print(seg);
             if (seg.isEmpty() || seg.length() > 4) return false;
-            print("Length correct");
+            // print("Length correct");
             for (char ch : seg.toCharArray()) {
                 if (!validChars.contains(ch)) return false;
             }
@@ -51,5 +51,4 @@ class Solution {
         return true;
     }
 
-    private void print(Object... xs) { for (Object x : xs) { if (x.getClass().isArray()) { System.out.print(Arrays.toString((int[])x) + " "); } else { System.out.print(x + " "); } } System.out.print(" ");}
 }
