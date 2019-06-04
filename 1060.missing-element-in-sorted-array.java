@@ -4,16 +4,16 @@ class Solution {
     }
 
     private int helper(int[] nums, int l, int r, int k) {
-        print(l, r, k);
+        // print(l, r, k);
         if (r <= l + 1) {
             int res = nums[l] + k;
             if (res > nums[r] && l != r) return res + 1;
             else return res;
         }
         int mid = l + (r - l) / 2;
-        print("mid", mid, "num[mid]", nums[mid]);
+        // print("mid", mid, "num[mid]", nums[mid]);
         int numMiss = (nums[mid] - nums[l]) - (mid - l);
-        print("numMiss ", numMiss);
+        // print("numMiss ", numMiss);
         if (numMiss >= k) {
             return helper(nums, l, mid, k);
         } else {
