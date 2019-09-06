@@ -7,7 +7,11 @@ class Solution {
             int root1 = log[1];
             while (root1 != uf[root1]) root1 = uf[root1];
             int root2 = log[2];
-            while (root2 != uf[root2]) root2 = uf[root2];
+            while (root2 != uf[root2]) {
+                int tmp = uf[root2];
+                uf[root2] = root1;
+                root2 = tmp;
+            }    
             if (root1 != root2) {
                 uf[root2] = root1;
                 N--;
